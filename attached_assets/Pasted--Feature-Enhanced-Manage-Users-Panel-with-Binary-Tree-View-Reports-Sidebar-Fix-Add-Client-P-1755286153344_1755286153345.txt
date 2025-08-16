@@ -1,0 +1,80 @@
+**Feature — Enhanced Manage Users Panel with Binary Tree View & Reports + Sidebar Fix + Add Client Parent ID Update**
+
+### 1. **Manage Users Panel (Admin & Client Dashboard)**
+
+Add a **Manage Users** section that contains **three tabs**:
+
+**i) All Users Panel**
+
+* Displays a searchable, filterable table of users.
+* **Admin** sees **all users** in the system.
+* **Client** sees **only their own downline**.
+
+**ii) Binary Tree Panel**
+
+* Displays **two separate binary tree visualizations**:
+
+  **a. Full Community Tree** (Admin only) — Shows the entire hierarchy of all users in the system.
+  **b. My Tree (Downline)** (Admin & Client) — Shows the logged-in user's own subtree (downline).
+
+  **Binary Tree Rules & Features**:
+
+  1. Each client node can have a maximum of **two children**.
+  2. Clicking on a node opens a **details popup** showing:
+
+     * Client's **name**, **username**, **plan**, **email**, **mobile number**.
+     * **Parent link** (clickable to navigate upward).
+     * **Children details**.
+  3. Color-coded nodes for plan type:
+
+     * **Silver** (₹510)
+     * **Gold** (₹1010)
+     * **Diamond** (₹1510)
+
+**iii) Report User Panel**
+
+* Displays reports for the user network:
+
+  * Plan distribution
+  * Referral counts
+  * Earnings
+
+---
+
+### 2. **Access Control**
+
+* **Admin**: Can view **All Users**, **Full Community Tree**, and **Report User** panel.
+* **Client**: Can view **All Users** (their downline), **My Tree**, and **Report User** (only their own network).
+
+---
+
+### 3. **Tree Display Requirements**
+
+* Trees must be **responsive** with horizontal scrolling for large networks.
+* Expand/Collapse functionality for branches.
+* Smooth zoom and drag support for navigation.
+
+---
+
+### 4. **Sidebar Scrolling Fix**
+
+* **Issue**: When panels expand, the sidebar hides bottom menu items, and scrolling down is not working.
+* **Fix**: Make the sidebar **vertically scrollable** so that all menu items remain accessible, even when the viewport is small or content expands.
+
+---
+
+### 5. **Add New Client Panel Update**
+
+* **Issue**: The current "Add New Client" form does not include a **Parent ID** input to link the new client to their sponsor/upline.
+
+* **Update**:
+
+  * Add a **Parent ID** field (hidden or visible) that records the user who created the client.
+  * For now, **only the admin** will be able to create new clients.
+  * Later, allow **any existing user** to create clients under their own downline.
+
+* **Functionality**:
+
+  * When creating a client, check if the `parentId` already has **two children**. If yes, reject creation and show an error.
+  * Link the new client to the parent's `children` array.
+

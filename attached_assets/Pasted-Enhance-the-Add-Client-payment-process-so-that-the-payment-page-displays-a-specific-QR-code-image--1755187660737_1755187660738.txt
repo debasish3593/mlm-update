@@ -1,0 +1,54 @@
+Enhance the "Add Client" payment process so that the payment page displays a specific QR code image based on the selected plan.
+
+---
+
+### QR Code Files:
+- `public/images/510.png` → Silver plan (₹510)
+- `public/images/1010.png` → Gold plan (₹1010)
+- `public/images/1510.png` → Diamond plan (₹1510)
+
+---
+
+### Requirements:
+
+1. When the admin selects a plan on the **Add Client** form (Silver, Gold, or Diamond) and proceeds to payment:
+    - Pass the selected plan information to the payment page (via query parameter, session, or temporary store).
+    - The payment page should display:
+        - The **plan name**
+        - The **amount**
+        - The **correct QR code image** from the files above.
+
+2. **Logic:**
+    - If the plan is **Silver** → show `510.png`.
+    - If the plan is **Gold** → show `1010.png`.
+    - If the plan is **Diamond** → show `1510.png`.
+
+3. **Payment Page Layout:**
+    - Heading: `"Complete Payment for [PLAN NAME] Plan"`
+    - Amount: `"₹[AMOUNT]"`
+    - QR Code: Display the corresponding QR code image in the center.
+    - A "Payment Done" button to confirm payment and trigger client creation.
+
+4. **Backend Changes:**
+    - Ensure that the plan selected from the Add Client form is sent to the payment page.
+    - No payment mock needed other than clicking "Payment Done" to proceed.
+
+5. **Frontend Changes:**
+    - In `payment.html`, use JavaScript to read the selected plan from the passed data and dynamically load the matching QR code and amount.
+
+---
+
+### Expected Files:
+1. `public/images/510.png` (Silver QR)
+2. `public/images/1010.png` (Gold QR)
+3. `public/images/1510.png` (Diamond QR)
+4. `payment.html` — payment page with dynamic QR loading logic
+5. Updated `add-client.html` — sends selected plan to payment page
+6. Updated backend route in `server.js` — passes plan data to payment page
+
+---
+
+**Extra Notes:**
+- Use `img` tag to display the QR codes.
+- Include error handling: if the plan is not found, show an error message and no QR code.
+- Maintain responsive design so QR codes display well on desktop and mobile.

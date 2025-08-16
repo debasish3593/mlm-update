@@ -1,0 +1,119 @@
+Ojective: 
+**Feature 1 — Plans Management Page**
+
+1. Create a **Plans** page in the admin panel with a table like this:
+
+   * Columns: **Name**, **Price**, **Business Volume (BV)**, **Referral Commission**, **Tree Commission**, **Status** (Enable/Disable), and **Action** (Edit/Delete).
+   * This page should manage **existing plans** — Silver, Gold, Diamond — with the ability to:
+
+     * Edit existing plan details (name, price, BV, commissions).
+     * Enable/Disable a plan.
+     * Add a **new plan** dynamically.
+   * **Link to Add Client Form:**
+     Any change (add/edit/delete) in the Plans page should **automatically update** the package dropdown in the "Add New Client" form so that the plans stay in sync.
+
+**Feature 2 — Payment Gateway with QR Codes**
+
+1. For each plan, assign a QR code:
+
+   * **Silver (₹510)** → `510.png`
+   * **Gold (₹1010)** → `1010.png`
+   * **Diamond (₹1510)** → `1510.png`
+2. When a plan is selected in the **payment page**, dynamically display the correct QR code and amount.
+3. Payment process:
+
+   * After plan selection, the payment page should display:
+
+     * QR Code
+     * Amount
+     * "Payment Done" button
+   * On clicking "Payment Done", send data to backend to validate payment and create the client.
+
+**Feature 3 — Add New Client Form (Separate Page)**
+
+1. **Fields:**
+
+   * Name (text, required)
+   * Username (text, required, unique)
+   * Password (password, required, with symbols/numbers allowed)
+   * Mobile Number (10 digits, required)
+   * Email (email type, required)
+   * Plan Selected (dropdown populated from Plans page)
+   * **Parent ID** (text, required if attaching under another client)
+2. **Validation:**
+
+   * Username uniqueness check
+   * Parent must have fewer than 2 children
+   * Payment must be confirmed before saving
+3. Store form data temporarily until payment confirmation.
+
+**Feature 4 — Dashboard Update**
+
+1. **Remove** the "Add New Client" section from the Dashboard since there is a separate page for it.
+2. Dashboard should still display:
+
+   * Total Clients
+   * Package distribution counts (Silver, Gold, Diamond)
+   * General stats
+**Feature 5 — Binary Tree View in Manage Users**
+
+1. In **Manage Users**, add a **binary tree visualization** showing the hierarchy:
+
+   * Each client as a node.
+   * Two child slots max per client.
+   * Displayed for both admin and client (client sees their own subtree).
+2. Clicking a node should show:
+
+   * Client details
+   * Children
+   * Parent link
+
+**Feature 6 — Backend (Currently what you are using)**
+
+1. **User Schema Fields:**
+
+   * name (string)
+   * username (string, unique)
+   * password (hashed with bcrypt)
+   * mobile (string)
+   * email (string)
+   * plan (string)
+   * parentId (string or null)
+   * children (array, max length 2)
+2. **Logic for Adding Client:**
+
+   * On payment confirmation:
+
+     * Check username uniqueness
+     * Verify parent exists & has less than 2 children
+     * Insert new client
+     * Update parent's `children` array
+3. **Plans Schema Fields:**
+
+   * name (string)
+   * price (number)
+   * BV (number)
+   * referralCommission (number)
+   * treeCommission (number)
+   * status (boolean)
+4. Plans data drives both:
+
+   * Plans Management Page
+   * Add New Client Form dropdown
+
+Outcome:
+The system will allow:
+
+Dynamic plan management.
+
+Accurate client creation with Parent ID and binary tree linking.
+
+Visual binary tree management for both admin and clients.
+
+Make sure the "Manage Users" binary tree is responsive and scrollable.
+
+Payment validation with QR codes before user insertion.
+
+Automatic sync between Plans Page and Add Client form.
+
+Use **sessions** or a temporary store to pass data between Add Client form and Payment page and also note that the payment qr code are not being appered in the add client page rectify this problem too.
